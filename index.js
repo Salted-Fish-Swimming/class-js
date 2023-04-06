@@ -18,7 +18,7 @@ const createClass = (in_prototype, in_body) => {
     ...Object.getOwnPropertyDescriptors({
       new (...args) {
         const instance = Object.create(ClassBody);
-        const result = body.new.apply(instance, args);
+        const result = body.init.apply(instance, args);
         switch (result) {
           case Class.Null : return null;
           case Class.Undefined : return undefined;

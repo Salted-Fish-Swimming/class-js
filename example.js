@@ -1,28 +1,25 @@
 const { Class } = require('./index.js');
 
-const Person = Class.from({
-  new ({ age, name }) {
-    this.__name__ = name;
-    this.__age__ = age;
+const Person = Class.from(({ s, p }) => ({
+  init ({ age, name }) {
+    p(this).name = name;
+    p(this).age = age;
   },
   get name () {
-    return 'Person';
+    return p(this).name;
   },
   get age () {
-    return this.__age__;
+    return p(this).age;
   },
   sayHello () {
     console.log('Hello!');
   }
-});
+}));
 
 const Author = Class.extend(Person).from(({ s, p }) => ({
-  new ({ name, books }) {
-    p(this).name = name;
+  init ({ name, books }) {
     p(this).books = books;
-  },
-  get name () {
-    return p(this).name;
+    s(s(this)).init.call(this, { name });
   },
   get books () {
     return p(this).books;
